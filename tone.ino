@@ -1,20 +1,20 @@
 void toneFreizeichen() {
-  tone(PIN_SPEAKER, 425);
+  portOne.println("AT+SIMTONE=1,425,25500,0,500000");
 }
 
 void toneOff() {
+  portOne.println("AT+SIMTONE=0");
   noTone(PIN_SPEAKER);
 }
 
 void toneError() {
-  tone(PIN_SPEAKER, 950);
-  delay(330);
-  tone(PIN_SPEAKER, 1400);
-  delay(330);
-  tone(PIN_SPEAKER, 1800);
-  delay(330);
-  toneOff();
-  delay(1000);
+    portOne.println("AT+SIMTONE=1,950,25500,0,330");
+    delay(330);
+    portOne.println("AT+SIMTONE=1,1400,25500,0,330");
+    delay(330);
+    portOne.println("AT+SIMTONE=1,1800,25500,0,330");
+    delay(330);
+    toneOff();
 }
 
 void ring() {

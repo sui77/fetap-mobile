@@ -20,6 +20,7 @@
 
 
 int currentState = STATE_OFF;
+int previousState = STATE_OFF;
 
 char readbuffer[100];
 int readbufferP = 0;
@@ -46,9 +47,16 @@ void setup() {
   Serial.begin(9600);
   dialer.setup();
 
+
 }
 
 void loop() {
+  if (previousState != currentState) {
+ Serial.print("Change state to ");   
+ Serial.println(currentState);
+  }
+  previousState = currentState;
+ 
   switch (currentState) {
     
     case STATE_OFF:
@@ -63,6 +71,8 @@ void loop() {
       // aufgelegt
       if (!isHookOn()) {
         currentState = STATE_OFF;
+        toneOff();
+        Serial.println("OFF");
       }
 
       // erste nummer bereits gewählt
