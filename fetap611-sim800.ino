@@ -1,15 +1,21 @@
 #include <RotaryDialer.h>
-#include <SoftwareSerial.h>
 
-#define PIN_READY	8   // weiß  (rot)
-#define PIN_PULSE	9   // grün   (schwarz)
-// GND gelb und braun
+// Rotary dial wheel
+// at least in my FeTAP 611 yellow + brown are GND
+#define PIN_ROTARY_READY	8   // white
+#define PIN_ROTARY_PULSE	9   // green
 
-#define PIN_SPEAKER 5 // grün/gelb
+// Hook - connect it to GND + this pin
 #define PIN_HOOK 12
 
-#define PIN_RING1 2
-#define PIN_RING2 3
+// H-Bridge input for ringer goes to
+#define PIN_RINGER1 2
+#define PIN_RINGER2 3
+
+// RX + TX @sim800
+#define PIN_SIM800_RX 10
+#define PIN_SIM800_TX 11
+
 
 #define STATE_OFF 1
 #define STATE_READY
@@ -17,9 +23,9 @@
 #define STATE_RINGING 3
 #define STATE_CALL 4
 
+String numberMemory[10];
 
-
-int currentState = STATE_OFF;
+int currentState  = STATE_OFF;
 int previousState = STATE_OFF;
 
 char readbuffer[100];
@@ -27,33 +33,49 @@ int readbufferP = 0;
 
 char phonenumber[20];
 int phonenumberP = 0;
-
 double lastNumberMillis = 0;
+bool firstNumberDialed = false;
 
-RotaryDialer dialer = RotaryDialer(PIN_READY, PIN_PULSE);
-SoftwareSerial portOne(10, 11);
+double lastRingingMillis = 0;
+
+RotaryDialer dialer = RotaryDialer(PIN_ROTARY_READY, PIN_ROTARY_PULSE);
+
   
 void setup() {
-	pinMode(PIN_HOOK, INPUT);
-  digitalWrite(PIN_HOOK, HIGH);
+  numberMemory[1] = "+49173....";
+  numberMemory[2] = "";
+  numberMemory[3] = "";
+  numberMemory[4] = "";
+  numberMemory[5] = "";
+  numberMemory[6] = "";
+  numberMemory[7] = "";
+  numberMemory[8] = "";
+  numberMemory[9] = "";
+  numberMemory[0] = "";
 
-  pinMode(PIN_RING1, OUTPUT);
-  digitalWrite(PIN_RING1, LOW);
-  pinMode(PIN_RING2, OUTPUT);
-  digitalWrite(PIN_RING2, LOW);
+	pinMode(PIN_HOOK, INPUT_PULLUP);
 
-  portOne.begin(57600);
-  portOne.println("AT");
+  pinMode(PIN_RINGER1, OUTPUT);
+  digitalWrite(PIN_RINGER1, LOW);
+  pinMode(PIN_RINGER2, OUTPUT);
+  digitalWrite(PIN_RINGER2, LOW);
+
+  sim800_init();
+
+
   Serial.begin(9600);
   dialer.setup();
 
+  Serial.println("Start");
+//ring();
 
 }
 
 void loop() {
+
   if (previousState != currentState) {
- Serial.print("Change state to ");   
- Serial.println(currentState);
+    Serial.print("State was changed to ");   
+    Serial.println(currentState);
   }
   previousState = currentState;
  
@@ -61,29 +83,45 @@ void loop() {
     
     case STATE_OFF:
       phonenumberP = 0;
-      if (isHookOn()) {
+      firstNumberDialed = 0;
+      if (fetap_offhook()) {
         toneFreizeichen();
         currentState = STATE_READY_TO_DIAL;
       }
     break;
 
     case STATE_READY_TO_DIAL:
-      // aufgelegt
-      if (!isHookOn()) {
+
+      if (!fetap_offhook()) {
         currentState = STATE_OFF;
         toneOff();
+        sim800_hangUp();
         Serial.println("OFF");
       }
 
-      // erste nummer bereits gewählt
-      if (phonenumberP != 0) {
-         toneOff();
+      // turn off dial tone if rotary wheel was moved
+      if (!firstNumberDialed && digitalRead( PIN_ROTARY_READY ) == 0) {
+        firstNumberDialed = true;
+        toneOff();
       }
   
-      if (phonenumberP > 2 && millis() > lastNumberMillis + 5000) {
-        phonenumberP = 0;
+      if (phonenumberP > 0 && millis() > lastNumberMillis + 4000) {
+        
         Serial.print("Call now: ");
-        Serial.println( phonenumber); 
+        Serial.println( phonenumber);
+        if (phonenumberP == 1) {
+          int number = phonenumber[0]-48;
+          if (numberMemory[number].equals("")) {
+            toneError();
+          } else {
+            toneInfo(number);
+            delay(1000*number+100);
+            sim800_call(numberMemory[number]);
+          }
+        } else {
+          sim800_call(phonenumber);
+        }
+        phonenumberP = 0;
       }
   
       if (dialer.update()) {
@@ -102,33 +140,41 @@ void loop() {
     break;
 
     case STATE_RINGING:
-      if (isHookOn()) {
-        Serial.println('answer call');
+      
+      if (fetap_offhook()) {
+        sim800_answerIncomingCall();
         currentState = STATE_CALL;
+      } else if (millis() > lastRingingMillis + 5000) {
+        currentState = STATE_OFF;
       }
+      
     break;
 
     case STATE_CALL:
-      if (!isHookOn()) {
-        Serial.println('end call');
+      if (!fetap_offhook()) {
+        sim800_hangUp();
         currentState = STATE_OFF;
       }    
     break;
   }
  
   
-  if (getSSerial()) { 
+  if (sim800_available()) { 
     Serial.print("From sim800: ");
     Serial.println(readbuffer);
-    if (strcmp(readbuffer, "RING")  == 0) {
+    if (strcmp(readbuffer, "RING")  == 0 && (currentState == STATE_OFF || currentState == STATE_RINGING)) {
           ring();
+          currentState = STATE_RINGING;
+          lastRingingMillis = millis();
+    } else if (strcmp(readbuffer, "NO DIALTONE") == 0 && currentState != STATE_OFF) {
+          toneError();
     }
   }
 
   if (Serial.available()) {
     char b = Serial.read();
     if (b!=0) {
-      portOne.print(b);
+      sim800_print(b);
     }
   }
 
