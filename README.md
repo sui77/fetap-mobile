@@ -1,7 +1,7 @@
 # rotary-sim800
 Turn your old rotary dial phone into a cell phone. (WIP, not stable yet)
 
-# Hardware
+## Hardware
  - A old rotary dial phone (for example a german FeTAp 611)
  - Arduino board
  - sim800 GSM module
@@ -10,6 +10,6 @@ Turn your old rotary dial phone into a cell phone. (WIP, not stable yet)
  - 3V-35V step up boost converter
  - L293D H-Bridge
 
-# Software
+## Software
  - [Rotary-Dial](https://github.com/markfickett/Rotary-Dial) library
  - Arduino sketch from this repository
