@@ -1,0 +1,441 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Driver_Motor:L293D U2
+U 1 1 609D5138
+P 8850 4200
+F 0 "U2" H 8850 5381 50  0000 C CNN
+F 1 "L293D" H 8850 5290 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm" H 9100 3450 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/l293.pdf" H 8550 4900 50  0001 C CNN
+	1    8850 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L suat:sim800l sim800l1
+U 1 1 609DABFA
+P 2400 2800
+F 0 "sim800l1" H 2800 2850 50  0001 C CNN
+F 1 "sim800l" H 2850 3773 50  0000 C CNN
+F 2 "suat:sim800l" H 2800 2850 50  0001 C CNN
+F 3 "" H 2800 2850 50  0001 C CNN
+	1    2400 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L suat:hoerer U3
+U 1 1 609DDBC5
+P 3750 2050
+F 0 "U3" H 3637 2825 50  0000 C CNN
+F 1 "hoerer" H 3637 2734 50  0000 C CNN
+F 2 "suat:suat" H 3750 2050 50  0001 C CNN
+F 3 "" H 3750 2050 50  0001 C CNN
+	1    3750 2050
+	-1   0    0    1   
+$EndComp
+$Comp
+L suat:cradleswitch Hook1
+U 1 1 609E49A5
+P 7850 2850
+F 0 "Hook1" H 7862 3375 50  0000 C CNN
+F 1 "hook switch" H 7862 3284 50  0000 C CNN
+F 2 "suat:cradleswitch" H 7850 2850 50  0001 C CNN
+F 3 "" H 7850 2850 50  0001 C CNN
+	1    7850 2850
+	-1   0    0    1   
+$EndComp
+$Comp
+L suat:stepup StepUpModule1
+U 1 1 609F086B
+P 10750 2250
+F 0 "StepUpModule1" H 10987 3175 50  0000 C CNN
+F 1 "stepup" H 10987 3084 50  0000 C CNN
+F 2 "suat:stepup" H 10750 2250 50  0001 C CNN
+F 3 "" H 10750 2250 50  0001 C CNN
+	1    10750 2250
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0101
+U 1 1 609F2D34
+P 6450 5000
+F 0 "#PWR0101" H 6450 4750 50  0001 C CNN
+F 1 "GND" H 6455 4827 50  0000 C CNN
+F 2 "" H 6450 5000 50  0001 C CNN
+F 3 "" H 6450 5000 50  0001 C CNN
+	1    6450 5000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0102
+U 1 1 609F516D
+P 6850 1850
+F 0 "#PWR0102" H 6850 1700 50  0001 C CNN
+F 1 "+5V" H 6865 2023 50  0000 C CNN
+F 2 "" H 6850 1850 50  0001 C CNN
+F 3 "" H 6850 1850 50  0001 C CNN
+	1    6850 1850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6550 1950 6850 1950
+Wire Wire Line
+	6850 1950 6850 1850
+Wire Wire Line
+	6550 1950 6550 2100
+$Comp
+L Connector:Conn_01x02_Female J1
+U 1 1 609F7F7A
+P 10000 3650
+F 0 "J1" H 10028 3626 50  0000 L CNN
+F 1 "Bell" H 10028 3535 50  0000 L CNN
+F 2 "Connector_JST:JST_EH_B2B-EH-A_1x02_P2.50mm_Vertical" H 10000 3650 50  0001 C CNN
+F 3 "~" H 10000 3650 50  0001 C CNN
+	1    10000 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0103
+U 1 1 60A01377
+P 10150 2100
+F 0 "#PWR0103" H 10150 1950 50  0001 C CNN
+F 1 "+5V" H 10165 2273 50  0000 C CNN
+F 2 "" H 10150 2100 50  0001 C CNN
+F 3 "" H 10150 2100 50  0001 C CNN
+	1    10150 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10350 2950 9850 2950
+Wire Wire Line
+	9850 2950 9850 2600
+Wire Wire Line
+	9850 2600 10350 2600
+$Comp
+L power:GND #PWR0105
+U 1 1 60A04C87
+P 9850 2100
+F 0 "#PWR0105" H 9850 1850 50  0001 C CNN
+F 1 "GND" H 9855 1927 50  0000 C CNN
+F 2 "" H 9850 2100 50  0001 C CNN
+F 3 "" H 9850 2100 50  0001 C CNN
+	1    9850 2100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9850 2600 9850 2100
+Connection ~ 9850 2600
+$Comp
+L power:+5V #PWR0106
+U 1 1 60A2D816
+P 1950 1850
+F 0 "#PWR0106" H 1950 1700 50  0001 C CNN
+F 1 "+5V" H 1965 2023 50  0000 C CNN
+F 2 "" H 1950 1850 50  0001 C CNN
+F 3 "" H 1950 1850 50  0001 C CNN
+	1    1950 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0107
+U 1 1 60A2E913
+P 1950 2750
+F 0 "#PWR0107" H 1950 2500 50  0001 C CNN
+F 1 "GND" H 1955 2577 50  0000 C CNN
+F 2 "" H 1950 2750 50  0001 C CNN
+F 3 "" H 1950 2750 50  0001 C CNN
+	1    1950 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L suat:charger Charger1
+U 1 1 60A33A34
+P 1900 5500
+F 0 "Charger1" H 1531 5819 50  0000 R CNN
+F 1 "charger" H 1531 5910 50  0000 R CNN
+F 2 "suat:charger" H 1900 5500 50  0001 C CNN
+F 3 "" H 1900 5500 50  0001 C CNN
+	1    1900 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0108
+U 1 1 60A34FFE
+P 2400 5050
+F 0 "#PWR0108" H 2400 4900 50  0001 C CNN
+F 1 "+5V" H 2415 5223 50  0000 C CNN
+F 2 "" H 2400 5050 50  0001 C CNN
+F 3 "" H 2400 5050 50  0001 C CNN
+	1    2400 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0109
+U 1 1 60A3576B
+P 2400 5250
+F 0 "#PWR0109" H 2400 5000 50  0001 C CNN
+F 1 "GND" H 2405 5077 50  0000 C CNN
+F 2 "" H 2400 5250 50  0001 C CNN
+F 3 "" H 2400 5250 50  0001 C CNN
+	1    2400 5250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 5100 2400 5100
+Wire Wire Line
+	2400 5100 2400 5050
+Wire Wire Line
+	1900 5200 2400 5200
+Wire Wire Line
+	2400 5200 2400 5250
+$Comp
+L Connector:Conn_01x02_Female Power1
+U 1 1 60A3B25D
+P 2350 4400
+F 0 "Power1" H 2378 4376 50  0000 L CNN
+F 1 "VIN" H 2378 4285 50  0000 L CNN
+F 2 "Connector_JST:JST_EH_B2B-EH-A_1x02_P2.50mm_Vertical" H 2350 4400 50  0001 C CNN
+F 3 "~" H 2350 4400 50  0001 C CNN
+	1    2350 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female Battery1
+U 1 1 60A3C0EE
+P 2350 5750
+F 0 "Battery1" H 2378 5726 50  0000 L CNN
+F 1 "Battery" H 2378 5635 50  0000 L CNN
+F 2 "Connector_JST:JST_EH_B2B-EH-A_1x02_P2.50mm_Vertical" H 2350 5750 50  0001 C CNN
+F 3 "~" H 2350 5750 50  0001 C CNN
+	1    2350 5750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 4900 1900 4400
+Wire Wire Line
+	1900 4400 2150 4400
+Wire Wire Line
+	1900 5000 2150 5000
+Wire Wire Line
+	2150 5000 2150 4700
+Wire Wire Line
+	1900 5300 2150 5300
+Wire Wire Line
+	2150 5300 2150 5750
+Wire Wire Line
+	1900 5400 1900 5850
+Wire Wire Line
+	1900 5850 2150 5850
+Wire Wire Line
+	1750 2300 2500 2300
+Wire Wire Line
+	1650 2400 2500 2400
+Wire Wire Line
+	1650 2400 1650 3400
+Wire Wire Line
+	2500 2100 1950 2100
+Wire Wire Line
+	1950 1850 1950 2100
+Wire Wire Line
+	2700 5200 2400 5200
+Connection ~ 2400 5200
+Wire Wire Line
+	2150 4700 2700 4700
+Wire Wire Line
+	2700 4700 2700 5200
+Connection ~ 2150 4700
+Wire Wire Line
+	2150 4700 2150 4500
+Wire Wire Line
+	9800 3600 9800 3650
+Wire Wire Line
+	9800 3800 9800 3750
+$Comp
+L Connector:Conn_01x04_Female Dial1
+U 1 1 60ADA9B0
+P 5050 2100
+F 0 "Dial1" H 5078 2076 50  0000 L CNN
+F 1 "Dial" H 5078 1985 50  0000 L CNN
+F 2 "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical" H 5050 2100 50  0001 C CNN
+F 3 "~" H 5050 2100 50  0001 C CNN
+	1    5050 2100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6850 3600 7050 3600
+Wire Wire Line
+	5850 2800 5600 2800
+Wire Wire Line
+	5850 2700 5700 2700
+$Comp
+L Switch:SW_Push SW1
+U 1 1 60A6FA41
+P 1150 2650
+F 0 "SW1" V 1196 2602 50  0000 R CNN
+F 1 "SW_Push" V 1105 2602 50  0000 R CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1150 2850 50  0001 C CNN
+F 3 "~" H 1150 2850 50  0001 C CNN
+	1    1150 2650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0104
+U 1 1 60A01BDD
+P 5450 2300
+F 0 "#PWR0104" H 5450 2050 50  0001 C CNN
+F 1 "GND" H 5455 2127 50  0000 C CNN
+F 2 "" H 5450 2300 50  0001 C CNN
+F 3 "" H 5450 2300 50  0001 C CNN
+	1    5450 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5250 1900 5700 1900
+Wire Wire Line
+	5700 1900 5700 2700
+Wire Wire Line
+	5250 2000 5600 2000
+Wire Wire Line
+	5600 2000 5600 2800
+Wire Wire Line
+	5250 2100 5450 2100
+Wire Wire Line
+	5450 2100 5450 2200
+Wire Wire Line
+	5250 2200 5450 2200
+Connection ~ 5450 2200
+Wire Wire Line
+	5450 2200 5450 2300
+Wire Wire Line
+	4550 2100 4550 3100
+Wire Wire Line
+	3600 2100 4550 2100
+Wire Wire Line
+	4550 3100 5850 3100
+Wire Wire Line
+	4650 2200 4650 3000
+Wire Wire Line
+	3600 2200 4650 2200
+Wire Wire Line
+	4650 3000 5850 3000
+Wire Wire Line
+	1750 2300 1750 3300
+Wire Wire Line
+	1750 3300 5850 3300
+Wire Wire Line
+	6450 4100 6350 4100
+Wire Wire Line
+	1650 3400 5850 3400
+$Comp
+L MCU_Module:Arduino_Nano_v3.x A1
+U 1 1 609DC7A3
+P 6350 3100
+F 0 "A1" H 6350 2011 50  0000 C CNN
+F 1 "Arduino_Nano_v3.x" H 6350 1920 50  0000 C CNN
+F 2 "Module:Arduino_Nano" H 6350 3100 50  0001 C CIN
+F 3 "http://www.mouser.com/pdfdocs/Gravitech_Arduino_Nano3_0.pdf" H 6350 3100 50  0001 C CNN
+	1    6350 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1950 2500 2500 2500
+$Comp
+L power:GND #PWR0110
+U 1 1 60A68D14
+P 1150 3100
+F 0 "#PWR0110" H 1150 2850 50  0001 C CNN
+F 1 "GND" H 1155 2927 50  0000 C CNN
+F 2 "" H 1150 3100 50  0001 C CNN
+F 3 "" H 1150 3100 50  0001 C CNN
+	1    1150 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1150 3100 1150 2850
+Wire Wire Line
+	1150 2450 1150 2200
+Wire Wire Line
+	1150 2200 2500 2200
+Wire Wire Line
+	1950 2750 1950 2500
+Wire Wire Line
+	3100 2300 3700 2300
+Wire Wire Line
+	3100 2400 3700 2400
+Wire Wire Line
+	3100 2500 3700 2500
+Wire Wire Line
+	3100 2600 3700 2600
+Wire Wire Line
+	8350 4600 8350 5000
+Wire Wire Line
+	8350 5000 8650 5000
+Wire Wire Line
+	8750 5000 8650 5000
+Connection ~ 8650 5000
+Wire Wire Line
+	8750 5000 8950 5000
+Connection ~ 8750 5000
+Wire Wire Line
+	9050 5000 8950 5000
+Connection ~ 8950 5000
+Wire Wire Line
+	7950 3700 7950 3800
+Wire Wire Line
+	7950 3800 8350 3800
+Wire Wire Line
+	7550 3800 7550 3600
+Wire Wire Line
+	7550 3600 8350 3600
+Wire Wire Line
+	6850 3700 7950 3700
+Wire Wire Line
+	6850 3800 7550 3800
+Wire Wire Line
+	7350 3500 7350 3150
+Wire Wire Line
+	7350 3150 7750 3150
+Wire Wire Line
+	7050 3600 7050 2950
+Wire Wire Line
+	7050 2950 7750 2950
+Wire Wire Line
+	6850 3500 7350 3500
+Wire Wire Line
+	9350 3600 9800 3600
+Wire Wire Line
+	9350 3800 9800 3800
+Wire Wire Line
+	8950 2850 8950 3200
+Wire Wire Line
+	8950 2850 10350 2850
+Wire Wire Line
+	8750 2500 8750 3200
+Wire Wire Line
+	8750 2500 10150 2500
+Wire Wire Line
+	10150 2100 10150 2500
+Connection ~ 10150 2500
+Wire Wire Line
+	10150 2500 10350 2500
+Wire Wire Line
+	6450 4100 6450 5000
+Wire Wire Line
+	6450 5000 8350 5000
+Connection ~ 6450 4100
+Connection ~ 8350 5000
+Connection ~ 6450 5000
+$EndSCHEMATC

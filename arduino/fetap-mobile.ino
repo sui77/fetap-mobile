@@ -2,19 +2,19 @@
 
 // Rotary dial wheel
 // at least in my FeTAP 611 yellow + brown are GND
-#define PIN_ROTARY_READY	8   // white
-#define PIN_ROTARY_PULSE	9   // green
+#define PIN_ROTARY_READY	5   // white
+#define PIN_ROTARY_PULSE	6   // green
 
 // Hook - connect it to GND + this pin
-#define PIN_HOOK 12
+#define PIN_HOOK A4
 
 // H-Bridge input for ringer goes to
-#define PIN_RINGER1 2
-#define PIN_RINGER2 3
+#define PIN_RINGER1 A6
+#define PIN_RINGER2 A7
 
 // RX + TX @sim800
-#define PIN_SIM800_RX 10
-#define PIN_SIM800_TX 11
+#define PIN_SIM800_RX 8
+#define PIN_SIM800_TX 9
 
 
 #define STATE_OFF 1
