@@ -55,6 +55,7 @@ bool sim800_available() {
         readbuffer[readbufferP] = 0;
         if (readbufferP != 0) {
           readbufferP = 0;
+        
           return true;
         }
       } else if (readbuffer[readbufferP] != 0) {

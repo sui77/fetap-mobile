@@ -5,7 +5,7 @@ bool fetap_offhook() {
 void ring() {
   Serial.println("RINGRING");
   
-  for (int i=0; i <= 20; i++) {
+  for (int i=0; i <= 30; i++) {
       digitalWrite(PIN_RINGER1, HIGH);
       digitalWrite(PIN_RINGER2, LOW);
       delay(12);

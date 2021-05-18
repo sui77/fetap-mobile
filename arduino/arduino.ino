@@ -2,15 +2,15 @@
 
 // Rotary dial wheel
 // at least in my FeTAP 611 yellow + brown are GND
-#define PIN_ROTARY_READY	5   // white
-#define PIN_ROTARY_PULSE	6   // green
+#define PIN_ROTARY_READY	2   // white
+#define PIN_ROTARY_PULSE	3   // green
 
 // Hook - connect it to GND + this pin
-#define PIN_HOOK A4
+#define PIN_HOOK A0
 
 // H-Bridge input for ringer goes to
-#define PIN_RINGER1 A6
-#define PIN_RINGER2 A7
+#define PIN_RINGER1 A2
+#define PIN_RINGER2 A3
 
 // RX + TX @sim800
 #define PIN_SIM800_RX 8
@@ -22,6 +22,7 @@
 #define STATE_READY_TO_DIAL 2
 #define STATE_RINGING 3
 #define STATE_CALL 4
+#define STATE_INPUT_SPEED_DIAL 5
 
 String numberMemory[10];
 
@@ -42,7 +43,7 @@ RotaryDialer dialer = RotaryDialer(PIN_ROTARY_READY, PIN_ROTARY_PULSE);
 
   
 void setup() {
-  numberMemory[1] = "+49173....";
+  numberMemory[1] = "491738959456";
   numberMemory[2] = "";
   numberMemory[3] = "";
   numberMemory[4] = "";
@@ -67,8 +68,9 @@ void setup() {
   dialer.setup();
 
   Serial.println("Start");
-//ring();
-
+ring();
+//setNumber(1, "491738959456");
+Serial.println( getNumber(1) );
 }
 
 void loop() {
@@ -121,12 +123,15 @@ void loop() {
         } else {
           sim800_call(phonenumber);
         }
+
+
         phonenumberP = 0;
       }
   
       if (dialer.update()) {
-        Serial.println(1);
-        phonenumber[phonenumberP] = 48 + dialer.getNextNumber();
+        int dialedNumber = dialer.getNextNumber();
+        Serial.println(dialedNumber);
+        phonenumber[phonenumberP] = 48 + dialedNumber;
         phonenumber[phonenumberP];
         phonenumber[phonenumberP+1] = 0;
         lastNumberMillis = millis();
