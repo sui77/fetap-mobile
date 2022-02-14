@@ -1,3 +1,9 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP Arduino_Pro
+D Arduino Nano Every
+K Arduino nano microcontroller module USB UPDI AATMega4809 AVR
+F https://content.arduino.cc/assets/NANOEveryV3.0_sch.pdf
+$ENDCMP
+#
 #End Doc Library

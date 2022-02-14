@@ -1,3 +1,11 @@
+void fetap611_init() {
+  pinMode(PIN_HOOK, INPUT_PULLUP);
+  pinMode(PIN_RINGER1, OUTPUT);
+  digitalWrite(PIN_RINGER1, LOW);
+  pinMode(PIN_RINGER2, OUTPUT);
+  digitalWrite(PIN_RINGER2, LOW);
+}
+
 bool fetap_offhook() {
   return !digitalRead(PIN_HOOK);
 }

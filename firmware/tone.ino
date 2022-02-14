@@ -3,7 +3,21 @@ void toneFreizeichen() {
 }
 
 void toneRinging() {
-  sim800.println("AT+STTONE=1,8,500000");
+  sim800.println("AT+SIMTONE=1,425,1000,3500,500000");
+}
+
+void noLine() {
+  sim800.println("AT+SIMTONE=1,425,240,240,500000");
+}
+
+void keinAnschluss() {
+  toneError();
+  delay(1000);
+  sim800.println("AT+CREC=4,C:\\keinanschluss.amr,0,1");
+}
+
+void inputTone() {
+  sim800.println("AT+SIMTONEX=1,50000,425,400,25500,10,0");
 }
 
 void toneOff() {
@@ -17,6 +31,13 @@ void toneInfo(int n) {
   sim800.println();
 }
 
+void playSound(String file) {
+  Serial.println("playing");
+  sim800.print("AT+CREC=4,C:\\User\\");
+  sim800.print(file);
+  sim800.println(".amr,0,1");
+}
+
 
 void toneError() {
     sim800.println("AT+SIMTONE=1,950,25500,0,330");
@@ -27,6 +48,3 @@ void toneError() {
     delay(330);
     toneOff();
 }
-
-
-

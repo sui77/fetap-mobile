@@ -432,7 +432,7 @@ U 1 1 60B294D4
 P 6350 3100
 F 0 "A1" H 6350 2011 50  0000 C CNN
 F 1 "Arduino_Pro" H 6350 1920 50  0000 C CNN
-F 2 "suat:pro_mini" H 6350 3100 50  0001 C CIN
+F 2 "Module:Arduino_Nano" H 6350 3100 50  0001 C CIN
 F 3 "https://content.arduino.cc/assets/NANOEveryV3.0_sch.pdf" H 6350 3100 50  0001 C CNN
 	1    6350 3100
 	1    0    0    -1  

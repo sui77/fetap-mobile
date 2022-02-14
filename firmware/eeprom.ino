@@ -3,11 +3,8 @@
 char number[15];
 
 void setNumber(int n, char number[15]) {
-  Serial.println("yo");
-  Serial.println(sizeof(number));
   int addr = n * 15;
   for (int i = 0; i<15; i++) {
-    Serial.print(addr+i); Serial.print(" "); Serial.println(number[i]);
     EEPROM.write(addr+i, number[i]);
   }
 }
@@ -15,7 +12,12 @@ void setNumber(int n, char number[15]) {
 char* getNumber(int n) {
   int addr = n * 15;
   for (int i = 0; i<15; i++) {
-    number[i] = EEPROM.read(addr+i);
+    char x = EEPROM.read(addr+i);
+    if (x > 47 && x <59) {
+       number[i] = x;
+    } else {
+      number[i] = 0;
+    }
   } 
   return number; 
 }

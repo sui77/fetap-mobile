@@ -6,7 +6,7 @@ void sim800_init() {
   sim800.begin(9600);
   sim800.println("AT");
   sim800_setRingerLevel(0);
-  sim800_setMicrophoneGain(13);
+  sim800_setMicrophoneGain(7);
 }
 
 /**
@@ -34,6 +34,7 @@ void sim800_answerIncomingCall() {
 }
 
 void sim800_call(String s) {
+  Serial.print("Calling "); Serial.println(s);
   sim800.print("ATD");
   sim800.print(s);
   sim800.println(";");
@@ -50,7 +51,6 @@ void sim800_print(char b) {
 bool sim800_available() {
    if (sim800.available()) { 
       readbuffer[readbufferP] = sim800.read();
-  
       if (readbuffer[readbufferP] == 13 || readbuffer[readbufferP] == 10) {
         readbuffer[readbufferP] = 0;
         if (readbufferP != 0) {
